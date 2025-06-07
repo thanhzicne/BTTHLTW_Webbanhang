@@ -1,0 +1,79 @@
+﻿@model BTTHLTW_Webbanhang.ViewModels.CategoryDetailsViewModel
+
+@{
+    ViewData["Title"] = "Chi tiết danh mục";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Danh mục: @Model.Category.Name</h4>
+        </div>
+        <div class="card-body">
+            <h5 class="mb-3">Danh sách sản phẩm trong danh mục</h5>
+
+            @if (Model.Products.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover align-middle text-center">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Tên sản phẩm</th>
+                                <th>Giá</th>
+                                <th>Mô tả</th>
+                                <th>Hình ảnh</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var product in Model.Products)
+                            {
+                                <tr>
+                                    <td>@product.Name</td>
+                                    <td class="text-success fw-bold">@product.Price.ToString("C")</td>
+                                    <td>@product.Description</td>
+                                    <td>
+                                        @if (!string.IsNullOrEmpty(product.ImageUrl))
+                                        {
+                                            <img src="@product.ImageUrl" alt="@product.Name" class="img-thumbnail" style="max-width: 100px;" />
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted">Không có ảnh</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <div class="d-flex justify-content-center gap-2">
+                                            <a asp-controller="Product" asp-action="Display" asp-route-id="@product.Id" class="btn btn-sm btn-outline-success">
+                                                <i class="bi bi-eye"></i> Xem
+                                            </a>
+                                            <a asp-controller="Product" asp-action="Update" asp-route-id="@product.Id" class="btn btn-sm btn-outline-warning">
+                                                <i class="bi bi-pencil-square"></i> Sửa
+                                            </a>
+                                            <a asp-controller="Product" asp-action="Delete" asp-route-id="@product.Id" class="btn btn-sm btn-outline-danger">
+                                                <i class="bi bi-trash"></i> Xóa
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-info">Không có sản phẩm nào trong danh mục này.</div>
+            }
+        </div>
+        <div class="card-footer text-end">
+            <a asp-action="Index" class="btn btn-secondary">
+                <i class="bi bi-arrow-left-circle"></i> Quay lại
+            </a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

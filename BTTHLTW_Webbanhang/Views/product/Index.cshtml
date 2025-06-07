@@ -5,56 +5,34 @@
 }
 
 <h2>Products</h2>
+<div class="mb-3 text-end">
+    <a asp-action="Add" class="btn btn-primary">Tạo mới</a>
+</div>
 
-<p>
-    <a asp-action="Add" class="btn btn-primary">Thêm Sản Phẩm</a>
-</p>
-
-@if (Model == null || !Model.Any())
-{
-    <p>Không có sản phẩm nào.</p>
-}
-else
-{
-    <table class="table table-striped table-bordered">
-        <thead class="table-dark">
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Image</th>
-                <th>Price</th>
-                <th>DesDescription</th>
-                <th>CtegoryId</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var product in Model)
-            {
-                <tr>
-                    <td>@product.Id</td>
-                    <td>
-                        @if (!string.IsNullOrEmpty(product.ImageUrl))
-                        {
-                            <img src="@product.ImageUrl" alt="@product.Name" class="img-fluid" style="max-width: 100px; max-height: 100px; object-fit: cover;" />
-                        }
-                        else
-                        {
-                            <img src="https://picsum.photos/100/100" alt="No Image" class="img-fluid" style="max-width: 100px; max-height: 100px; object-fit: cover;" />
-                        }
-                    </td>
-                   
-                    <td>@product.Name</td>
-                    <td>@product.Price</td>
-                    <td>@product.Description</td>
-                    <td>@product.CategoryId</td>
-                    <td>
-                        <a asp-action="Display" asp-route-id="@product.Id" class="btn btn-sm btn-info">View</a>
-                        <a asp-action="Update" asp-route-id="@product.Id" class="btn btn-sm btn-warning">Edit</a>
-                        <a asp-action="Delete" asp-route-id="@product.Id" class="btn btn-sm btn-danger">Delete</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
+<table class="table"> 
+    <thead> 
+        <tr> 
+            <th>Name</th> 
+            <th>Price</th> 
+            <th>Description</th> 
+            <th>Category</th> 
+            <th>Actions</th> 
+        </tr> 
+    </thead> 
+    <tbody> 
+    @foreach (var product in Model) 
+    { 
+        <tr> 
+            <td>@product.Name</td> 
+            <td>@product.Price</td> 
+            <td>@product.Description</td> 
+            <td>@product.Category?.Name </td> 
+            <td> 
+                <a asp-action="Display" class="btn btn-success" asp-route-id="@product.Id">View</a> | 
+                <a asp-action="Update" class="btn btn-warning" asp-route-id="@product.Id">Edit</a> | 
+                <a asp-action="Delete" class="btn btn-danger" asp-route-id="@product.Id">Delete</a> 
+            </td> 
+        </tr> 
+    } 
+    </tbody> 
+</table>

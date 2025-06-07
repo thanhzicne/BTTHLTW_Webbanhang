@@ -1,0 +1,37 @@
+﻿@model BTTHLTW_Webbanhang.Models.Category
+
+@{
+    ViewData["Title"] = "Xóa danh mục";
+}
+
+<div class="container mt-5">
+    <div class="card border-danger shadow">
+        <div class="card-header bg-danger text-white">
+            <h4 class="mb-0">Xác nhận xóa danh mục</h4>
+        </div>
+        <div class="card-body">
+            <div class="alert alert-warning" role="alert">
+                <strong>Bạn có chắc chắn muốn xóa danh mục sau không?</strong>
+            </div>
+
+            <h5 class="text-danger">@Model.Name</h5>
+
+            <form asp-action="Delete" method="post">
+                <input type="hidden" asp-for="Id" />
+
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-danger me-2">
+                        <i class="bi bi-trash"></i> Xóa
+                    </button>
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="bi bi-arrow-left-circle"></i> Quay lại
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
