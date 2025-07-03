@@ -2,7 +2,9 @@
 
 @{
     ViewData["Title"] = "Chi tiết sản phẩm";
+    int numOfQuantity = 1;
 }
+
 
 <div class="container mt-5">
     <div class="card shadow-lg">
@@ -19,7 +21,10 @@
                     <h4 class="text-danger mt-3">Giá: @Model.Price.ToString("N0") ₫</h4>
                     <hr />
                     <p class="card-text mt-3">Mô tả: @Model.Description</p>
-
+                    <a asp-controller="ShoppingCart" asp-action="AddToCart" asp-route-productId="@Model.Id"
+                       asp-route-quantity="@numOfQuantity">
+                        <button class="btn btn-outline-dark"> <i class="bi-cart-fill me-1"></i> Thêm vào giỏ hàng </button>
+                    </a>
                     <a asp-action="Index" class="btn btn-secondary mt-4">
                         <i class="bi bi-arrow-left-circle"></i> Quay lại danh sách
                     </a>

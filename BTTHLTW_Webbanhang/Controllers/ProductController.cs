@@ -1,10 +1,15 @@
-﻿using BTTHLTW_Webbanhang.Repository;
+﻿using BTTHLTW_Webbanhang.Areas.Admin.Views;
 using BTTHLTW_Webbanhang.Models;
+using BTTHLTW_Webbanhang.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
+
 namespace BTTHLTW_Webbanhang.Controllers
 {
+    //[Area("Admin")]
+    //[Authorize(Roles = SD.Role_Admin)]
     public class ProductController : Controller
     {
         private readonly IProductRepository _productRepository;
@@ -21,7 +26,7 @@ namespace BTTHLTW_Webbanhang.Controllers
             var products = await _productRepository.GetAllAsync();
             return View(products);
         }
-
+        
         public async Task<IActionResult> Add()
         {
             var categories = await _categoryRepository.GetAllAsync();
@@ -65,7 +70,7 @@ namespace BTTHLTW_Webbanhang.Controllers
             }
             return View(product);
         }
-
+        
         public async Task<IActionResult> Update(int id)
         {
             var product = await _productRepository.GetByIdAsync(id);
@@ -109,7 +114,7 @@ namespace BTTHLTW_Webbanhang.Controllers
             ViewBag.Categories = new SelectList(categories, "Id", "Name", product.CategoryId);
             return View(product);
         }
-
+        
         public async Task<IActionResult> Delete(int id)
         {
             var product = await _productRepository.GetByIdAsync(id);
